@@ -29,7 +29,7 @@ class ScheduleItem extends StatelessWidget {
         ),
         title: Text(item.title),
         subtitle: Text(item.game ?? ''),
-        trailing: Text(DateFormat.jm().format(item.timeStart)),
+        trailing: Text(DateFormat.jm('de_DE').format(item.timeStart)),
         shape: RoundedRectangleBorder(
           side: const BorderSide(width: 1),
           borderRadius: BorderRadius.circular(10),

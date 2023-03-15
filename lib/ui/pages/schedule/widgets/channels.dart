@@ -7,12 +7,14 @@ class Channels extends StatelessWidget {
     super.key,
     required this.channels,
     required this.onChannelChanged,
+    required this.show,
     this.selectedChannel,
   });
 
   final List<Channel> channels;
   final Channel? selectedChannel;
   final Function onChannelChanged;
+  final bool show;
 
   static const double _selectedAvatarRadius = 40;
   static const double _selectedAvatarImageRadius = 38;
@@ -45,8 +47,9 @@ class Channels extends StatelessWidget {
       ),
     );
 
-    return SizedBox(
-      height: 100,
+    return AnimatedContainer(
+      height: show ? 100 : 0,
+      duration: const Duration(milliseconds: 200),
       width: double.infinity,
       child: ListView(
         scrollDirection: Axis.horizontal,

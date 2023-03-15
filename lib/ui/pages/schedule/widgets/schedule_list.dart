@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pocket_beans/ui/pages/schedule/widgets/schedule_item.dart';
 
 import '../../../../domain/entities/schedule_entry.dart';
 
-class ScheduleList extends StatelessWidget {
+class ScheduleList extends ConsumerWidget {
   final Map<DateTime, List<ScheduleEntry>>? schedule;
   final Function onScroll;
 
   final ScrollController _scrollController = ScrollController();
 
-  ScheduleList({super.key, required this.schedule, required this.onScroll}) {
+  ScheduleList({
+    super.key,
+    required this.schedule,
+    required this.onScroll,
+  }) {
     _scrollController.addListener(() {
       onScroll(_scrollController.offset);
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (schedule == null) {
       return Container();
     }
@@ -44,7 +49,7 @@ class ScheduleList extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(DateFormat('EEEE, d.M').format(date)),
+                  child: Text(DateFormat('EEEE, dd.MM', 'de_DE').format(date)),
                 ),
                 ListView.builder(
                   shrinkWrap: true,

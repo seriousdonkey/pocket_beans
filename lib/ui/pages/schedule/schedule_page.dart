@@ -28,10 +28,8 @@ class SchedulePageState extends ConsumerState<SchedulePage> {
     final AsyncValue<ScheduleState> state =
         ref.watch(scheduleControllerProvider);
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.black87,
-      ),
+    return AnnotatedRegion(
+      value: const SystemUiOverlayStyle(statusBarColor: Colors.black87),
       child: Scaffold(
         body: SafeArea(
           child: state.isLoading
@@ -45,16 +43,13 @@ class SchedulePageState extends ConsumerState<SchedulePage> {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Column(
                         children: [
-                          AnimatedContainer(
-                            height: showChannels ? 100 : 0,
-                            duration: const Duration(milliseconds: 200),
-                            child: Channels(
-                              channels: state.value?.channels ?? [],
-                              selectedChannel: state.value?.selectedChannel,
-                              onChannelChanged: (channel) => ref
-                                  .read(scheduleControllerProvider.notifier)
-                                  .selectChannel(channel),
-                            ),
+                          Channels(
+                            channels: state.value?.channels ?? [],
+                            selectedChannel: state.value?.selectedChannel,
+                            show: showChannels,
+                            onChannelChanged: (channel) => ref
+                                .read(scheduleControllerProvider.notifier)
+                                .selectChannel(channel),
                           ),
                           Text(
                             state.value?.selectedChannel?.name ?? '',
